@@ -81,30 +81,13 @@ Test #	Scenario	Input Conditions	Expected Result	Status
 5	NS Emergency	NS=0, EW=1, Emg_NS=1	Immediate NS Green	✅ PASS
 6	Both Directions	NS=1, EW=1	Alternating Traffic	✅ PASS
 7	Multiple Emergency	Emg_NS then Emg_EW	Sequential Priority	✅ PASS
+## Conclusion
 
-###Detailed Test Results
-###Test 1: No Traffic (IDLE State)
-
-|_________|_____________________|____________________|______
-Time=0    | State=IDLE          | All Lights RED     | EMG=0
-Time=50   | State=IDLE          | All Lights RED     | EMG=0
-Result: ✅ System correctly stays in IDLE with all red lights
-###Test 2: NS Traffic Only
-|_________|_____________________|____________________|______
-Time=60   | State=NS_GREEN      | NS=GREEN, EW=RED   | EMG=0
-Time=160  | State=NS_YELLOW     | NS=YELLOW, EW=RED  | EMG=0
-Time=190  | State=EW_GREEN      | NS=RED, EW=GREEN   | EMG=0
-Result: ✅ Proper NS → EW transition with yellow interval
-###Test 3: Emergency Vehicle on EW
-|_________|_____________________|____________________|______
-Time=200  | State=NS_GREEN      | NS=GREEN, EW=RED   | EMG=0
-Time=210  | Trigger: emergency_ew = 1
-Time=220  | State=EMERGENCY_EW   | NS=RED, EW=GREEN   | EMG=1
-Time=320  | State=IDLE          | All RED            | EMG=0
-Result: ✅ Emergency override works immediately (within 2 cycles)
-###Test 4: Both Directions Active
-
-Cycle 1: NS_GREEN (10 cycles) → NS_YELLOW (3 cycles)
-Cycle 2: EW_GREEN (10 cycles) → EW_YELLOW (3 cycles)
-Result: ✅ Fair alternating traffic flow maintained
+All test cases passed successfully. The traffic light controller demonstrates:
+- ✅ Correct state transitions
+- ✅ Proper emergency vehicle priority override
+- ✅ Fair traffic distribution when both directions active
+- ✅ Immediate response to emergency vehicles (within 2 clock cycles)
+- ✅ Robust handling of multiple emergency scenarios
+- ✅ Proper return to normal operation after emergency
 
